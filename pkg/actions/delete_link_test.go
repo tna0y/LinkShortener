@@ -25,18 +25,16 @@ func (suite *DeleteLinkTestSuite) TestSuccess() {
 
 	suite.Require().NoError(err)
 
-	err = suite.actions.DeleteLink(suite.ctx,"hello", entities.NewRequester("12345"))
+	err = suite.actions.DeleteLink(suite.ctx, "hello", entities.NewRequester("12345"))
 
 	suite.Require().NoError(err)
 }
 
-
 func (suite *DeleteLinkTestSuite) TestNotFound() {
-	err := suite.actions.DeleteLink(suite.ctx,"hello", entities.NewRequester("12345"))
+	err := suite.actions.DeleteLink(suite.ctx, "hello", entities.NewRequester("12345"))
 
 	suite.Require().Error(entities.ErrNotFound, err)
 }
-
 
 func (suite *DeleteLinkTestSuite) TestPermissionDenied() {
 	_, err := suite.actions.CreateLink(suite.ctx, CreateLinkArgs{
@@ -47,7 +45,7 @@ func (suite *DeleteLinkTestSuite) TestPermissionDenied() {
 
 	suite.Require().NoError(err)
 
-	err = suite.actions.DeleteLink(suite.ctx,"hello", entities.NewRequester("1"))
+	err = suite.actions.DeleteLink(suite.ctx, "hello", entities.NewRequester("1"))
 
 	suite.Require().Error(entities.ErrPermissionDenied, err)
 }

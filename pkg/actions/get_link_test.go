@@ -28,19 +28,17 @@ func (suite *GetLinkTestSuite) TestSuccess() {
 
 	suite.Require().NoError(err)
 
-	res, err := suite.actions.GetLink(suite.ctx,"hello", entities.NewRequester("12345"))
+	res, err := suite.actions.GetLink(suite.ctx, "hello", entities.NewRequester("12345"))
 	suite.Require().NoError(err)
 
 	suite.Require().Equal(args.Target, res.Target)
 }
 
-
 func (suite *GetLinkTestSuite) TestNotFound() {
-	_, err := suite.actions.GetLink(suite.ctx,"hello", entities.NewRequester("12345"))
+	_, err := suite.actions.GetLink(suite.ctx, "hello", entities.NewRequester("12345"))
 
 	suite.Require().Error(entities.ErrNotFound, err)
 }
-
 
 func (suite *GetLinkTestSuite) TestPermissionDenied() {
 	_, err := suite.actions.CreateLink(suite.ctx, CreateLinkArgs{
@@ -51,7 +49,7 @@ func (suite *GetLinkTestSuite) TestPermissionDenied() {
 
 	suite.Require().NoError(err)
 
-	_, err = suite.actions.GetLink(suite.ctx,"hello", entities.NewRequester("1"))
+	_, err = suite.actions.GetLink(suite.ctx, "hello", entities.NewRequester("1"))
 
 	suite.Require().Error(entities.ErrPermissionDenied, err)
 }

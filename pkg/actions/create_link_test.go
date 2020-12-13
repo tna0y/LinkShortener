@@ -65,7 +65,6 @@ func (suite *CreateLinkTestSuite) TestAlreadyExists() {
 	suite.Require().Error(entities.ErrExists, err)
 }
 
-
 func (suite *CreateLinkTestSuite) TestTimeout() {
 	_, err := suite.actions.CreateLink(suite.ctx, CreateLinkArgs{
 		ShortID: "hello",
