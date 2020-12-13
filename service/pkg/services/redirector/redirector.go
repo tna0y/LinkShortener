@@ -54,7 +54,8 @@ func (r *Redirector) Run(ctx context.Context) error {
 
 	wg.Go(func() error {
 		<-wgCtx.Done()
-		shutdownCtx, _ := context.WithTimeout(context.Background(), time.Second)
+		shutdownCtx, cancel := context.WithTimeout(context.Background(), time.Second)
+		defer cancel()
 		return srv.Shutdown(shutdownCtx)
 	})
 
@@ -63,7 +64,6 @@ func (r *Redirector) Run(ctx context.Context) error {
 
 func (r *Redirector) handler(w http.ResponseWriter, req *http.Request) {
 	path := req.URL.Path[1:]
-
 
 	target, err := r.actions.GetLinkTarget(req.Context(), path)
 	if err == entities.ErrNotFound {
