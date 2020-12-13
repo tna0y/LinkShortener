@@ -11,9 +11,8 @@ import (
 type ActionsTestSuite struct {
 	suite.Suite
 	actions *Actions
-	ctx context.Context
+	ctx     context.Context
 }
-
 
 func (suite *ActionsTestSuite) SetupTest() {
 	storage, err := sqlite.NewSQLiteStorage(":memory:")
@@ -23,4 +22,3 @@ func (suite *ActionsTestSuite) SetupTest() {
 
 	suite.ctx = context.Background()
 }
-
