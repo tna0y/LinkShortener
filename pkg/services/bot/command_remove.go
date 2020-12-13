@@ -25,8 +25,6 @@ func (b *Bot) removeCommand(ctx context.Context, args string, chatID int64) (err
 	return
 }
 
-
 func (b *Bot) buildRemoveResponse() string {
 	return linkRemovedMessage
 }
-

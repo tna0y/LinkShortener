@@ -3,7 +3,7 @@ version: "3.5"
 services:
   shortener:
     image: tna0y/linkshortener:latest
-    build: service
+    build: .
     restart: on-failure
     ports:
       - "8000:8000"

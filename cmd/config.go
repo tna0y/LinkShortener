@@ -14,8 +14,6 @@ func buildConfig() config.Config {
 	_ = viper.BindEnv("BOT_TOKEN")
 	_ = viper.BindEnv("SQLITE_PATH")
 
-
-
 	return config.Config{
 		Bind:          viper.GetString("BIND"),
 		BaseURL:       viper.GetString("BASE_URL"),

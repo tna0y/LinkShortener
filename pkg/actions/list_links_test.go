@@ -20,7 +20,7 @@ type ListLinkTestSuite struct {
 func (suite *ListLinkTestSuite) TestSuccess() {
 
 	var argsList []CreateLinkArgs
-	for i := 0 ; i < 10; i++ {
+	for i := 0; i < 10; i++ {
 		args := CreateLinkArgs{
 			ShortID: "hello" + strconv.Itoa(i),
 			Target:  "https://google.com" + strconv.Itoa(i),
@@ -35,7 +35,7 @@ func (suite *ListLinkTestSuite) TestSuccess() {
 
 	suite.Require().NoError(err)
 	suite.Require().Equal(len(argsList), len(res))
-	for i := 0 ; i < 10; i++ {
+	for i := 0; i < 10; i++ {
 		suite.Require().Equal(argsList[i].Target, res[i].Target)
 		suite.Require().Equal(argsList[i].ShortID, res[i].ShortID)
 	}
