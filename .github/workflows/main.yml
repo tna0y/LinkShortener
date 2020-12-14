@@ -1,4 +1,4 @@
-name: CICD
+name: cicd_main
 
 on:
   push:
@@ -34,7 +34,7 @@ jobs:
         go test -v -covermode=count ./...
 
   coverage:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latestgt
     steps:
     - name: Install Go
       if: success()
