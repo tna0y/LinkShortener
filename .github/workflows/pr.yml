@@ -1,4 +1,4 @@
-name: CICD
+name: cicd_pr
 
 on:
   pull_request:
