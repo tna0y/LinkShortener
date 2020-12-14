@@ -89,8 +89,8 @@ jobs:
           aws-region: eu-central-1
 
       - name: Download ECS task definition
-          run: |
-            aws --region eu-central-1 ecs describe-task-definition --task-definition link-shortener --query taskDefinition > task-definition.json
+        run: |
+          aws --region eu-central-1 ecs describe-task-definition --task-definition link-shortener --query taskDefinition > task-definition.json
 
       - name: Fill in the new image ID
         id: task-def
