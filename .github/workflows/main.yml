@@ -34,7 +34,7 @@ jobs:
         go test -v -covermode=count ./...
 
   coverage:
-    runs-on: ubuntu-latestgt
+    runs-on: ubuntu-latest
     steps:
     - name: Install Go
       if: success()
