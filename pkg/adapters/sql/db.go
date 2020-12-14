@@ -1,9 +1,10 @@
-package sqlite
+package sql
 
 import (
 	"context"
 	"time"
 
+	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
@@ -31,6 +32,22 @@ func NewSQLiteStorage(path string) (adapters.StorageAdapter, error) {
 	}, nil
 }
 
+func NewPostgresStorage(path string) (adapters.StorageAdapter, error) {
+	db, err := gorm.Open(postgres.Open(path), &gorm.Config{})
+	if err != nil {
+		return nil, err
+	}
+
+	err = db.AutoMigrate(&Link{})
+	if err != nil {
+		return nil, err
+	}
+
+	return &sqliteStorage{
+		db: db,
+	}, nil
+}
+
 func (p *sqliteStorage) CreateLink(ctx context.Context, link entities.Link) (res entities.Link, err error) {
 
 	out := serializeLink(link)
@@ -38,7 +55,7 @@ func (p *sqliteStorage) CreateLink(ctx context.Context, link entities.Link) (res
 	err = p.db.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 
 		var existing []Link
-		result := tx.Where("short_id = ? AND start <= ? AND (end > ? OR end is NULL)", out.ShortID, out.Start, out.Start).Find(&existing)
+		result := tx.Where("short_id = ? AND start <= ? AND (\"end\" > ? OR \"end\" is NULL)", out.ShortID, out.Start, out.Start).Find(&existing)
 		if result.Error != nil {
 			return result.Error
 		}
@@ -58,7 +75,7 @@ func (p *sqliteStorage) CreateLink(ctx context.Context, link entities.Link) (res
 
 func (p *sqliteStorage) GetLink(ctx context.Context, ID string) (res entities.Link, err error) {
 	var out []Link
-	result := p.db.WithContext(ctx).Where("short_id = ? AND (end > ? OR end is NULL)", ID, time.Now()).Find(&out)
+	result := p.db.WithContext(ctx).Where("short_id = ? AND (\"end\" > ? OR \"end\" is NULL)", ID, time.Now()).Find(&out)
 	if result.Error != nil {
 		err = result.Error
 		return
@@ -87,7 +104,7 @@ func (p *sqliteStorage) DeleteLink(ctx context.Context, link entities.Link) (err
 
 func (p *sqliteStorage) ListLinks(ctx context.Context, ownerID string) (res []entities.Link, err error) {
 	var out []Link
-	result := p.db.WithContext(ctx).Where("owner_id = ? AND (end > ? OR end is NULL)", ownerID, time.Now()).Find(&out)
+	result := p.db.WithContext(ctx).Where("owner_id = ? AND (\"end\" > ? OR \"end\" is NULL)", ownerID, time.Now()).Find(&out)
 	if result.Error != nil {
 		return nil, result.Error
 	}

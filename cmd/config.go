@@ -12,12 +12,12 @@ func buildConfig() config.Config {
 	_ = viper.BindEnv("BIND")
 	_ = viper.BindEnv("BASE_URL")
 	_ = viper.BindEnv("BOT_TOKEN")
-	_ = viper.BindEnv("SQLITE_PATH")
+	_ = viper.BindEnv("POSTGRES_DSN")
 
 	return config.Config{
 		Bind:          viper.GetString("BIND"),
 		BaseURL:       viper.GetString("BASE_URL"),
 		TelegramToken: viper.GetString("BOT_TOKEN"),
-		SQLitePath:    viper.GetString("SQLITE_PATH"),
+		PostgresDSN:   viper.GetString("POSTGRES_DSN"),
 	}
 }

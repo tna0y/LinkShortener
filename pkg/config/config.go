@@ -4,5 +4,5 @@ type Config struct {
 	Bind          string
 	BaseURL       string
 	TelegramToken string
-	SQLitePath    string
+	PostgresDSN   string
 }
