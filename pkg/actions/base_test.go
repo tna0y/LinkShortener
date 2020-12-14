@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
-	"service/pkg/adapters/sqlite"
+	"service/pkg/adapters/sql"
 )
 
 type ActionsTestSuite struct {
@@ -15,7 +15,7 @@ type ActionsTestSuite struct {
 }
 
 func (suite *ActionsTestSuite) SetupTest() {
-	storage, err := sqlite.NewSQLiteStorage(":memory:")
+	storage, err := sql.NewSQLiteStorage(":memory:")
 	suite.Require().NoError(err)
 
 	suite.actions = NewActions(storage)

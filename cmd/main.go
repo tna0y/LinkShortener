@@ -9,7 +9,7 @@ import (
 	"golang.org/x/sync/errgroup"
 
 	"service/pkg/actions"
-	"service/pkg/adapters/sqlite"
+	"service/pkg/adapters/sql"
 	"service/pkg/services"
 )
 
@@ -17,7 +17,7 @@ func build() ([]services.Service, error) {
 
 	cfg := buildConfig()
 
-	storage, err := sqlite.NewSQLiteStorage(cfg.SQLitePath)
+	storage, err := sql.NewPostgresStorage(cfg.PostgresDSN)
 	if err != nil {
 		return nil, err
 	}

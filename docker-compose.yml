@@ -8,7 +8,8 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - "LS_BIND=:8000"
-      - "LS_BASE_URL=http://localhost:8000"
-      - "LS_BOT_TOKEN=<YOUR TELEGRAM TOKEN>"
-      - "LS_SQLITE_PATH=:memory:"
+      LS_BIND: ":8000"
+      LS_BASE_URL: "http://localhost:8000"
+      LS_BOT_TOKEN: "<TELEGRAM API TOKEN>"
+      LS_POSTGRES_DSN: "<POSTGRES DSN>"
+
